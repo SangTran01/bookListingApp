@@ -25,9 +25,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<Book>> {
 
-    private String JSON_RESPONSE = "https://www.googleapis.com/books/v1/volumes?q=Butterfly&maxResults=10&key=AIzaSyDHX7LQsxQs-np9SHaLd-UTxuiZ1XnZ7tg";
+    private String JSON_RESPONSE = "https://www.googleapis.com/books/v1/volumes?q=Butterfly&maxResults=10&key=";
     private String BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
-    private String API_KEY = "AIzaSyDHX7LQsxQs-np9SHaLd-UTxuiZ1XnZ7tg";
+    private String API_KEY = "";
     private int LOADER_ID_1 = 1;
 
     private BookAdapter mAdapter;
