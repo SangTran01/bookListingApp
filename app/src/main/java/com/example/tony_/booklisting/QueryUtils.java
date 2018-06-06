@@ -131,18 +131,34 @@ public final class QueryUtils {
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
                 //title
-                String title = volumeInfo.getString("title");
-                JSONArray JSONAuthors = volumeInfo.getJSONArray("authors");
-
+                String title = "Unknown Title";
+                if (volumeInfo.has("title")) {
+                     title = volumeInfo.getString("title");
+                }
                 ArrayList<String> authors = new ArrayList<String>();
-
-                //authors
-                for (int j = 0; j < JSONAuthors.length(); j++) {
-                    authors.add(JSONAuthors.getString(j));
+                if (volumeInfo.has("authors")) {
+                    JSONArray JSONAuthors = volumeInfo.getJSONArray("authors");
+                    if (!JSONAuthors.isNull(0)) {
+                        //authors
+                        for (int j = 0; j < JSONAuthors.length(); j++) {
+                            authors.add(JSONAuthors.getString(j));
+                        }
+                    } else {
+                        authors.add("No authors");
+                    }
                 }
 
-                String year = volumeInfo.getString("publishedDate");
-                String description = volumeInfo.getString("description");
+
+
+
+                String year = "Unknown Date";
+                if (volumeInfo.has("publishedDate")) {
+                    year = volumeInfo.getString("publishedDate");
+                }
+                String description = "No Description";
+                if (volumeInfo.has("description")) {
+                    description = volumeInfo.getString("description");
+                }
                 JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
 
                 String coverUrl = imageLinks.getString("smallThumbnail");

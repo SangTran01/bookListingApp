@@ -53,18 +53,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 String input = searchEditText.getText().toString().trim();
-//                StringBuilder stringUrl = new StringBuilder(BASE_URL);
-//                stringUrl.append("q=")
-//                        .append(input)
-//                        .append("&key=")
-//                        .append(API_KEY);
-//                startBookSearch(stringUrl.toString());
-
                 Uri baseUri = Uri.parse(BASE_URL);
                 Uri.Builder builder = baseUri.buildUpon();
 
                 builder.appendQueryParameter("q",input);
-                builder.appendQueryParameter("maxResults", "4");
+                builder.appendQueryParameter("maxResults", "10");
                 builder.appendQueryParameter("key", API_KEY);
 
                 String completedUri = builder.toString();
@@ -155,9 +148,6 @@ public class MainActivity extends AppCompatActivity
         // If there is a network connection, fetch data
         if (networkInfo != null && networkInfo.isConnected()) {
             Log.v("MainActivity", "LOADER here1");
-
-            // Get a reference to the LoaderManager, in order to interact with loaders.
-            LoaderManager loaderManager = getLoaderManager();
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
