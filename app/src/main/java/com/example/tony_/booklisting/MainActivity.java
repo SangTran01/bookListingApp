@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +18,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<Book>> {
 
-    private String JSON_RESPONSE = "https://www.googleapis.com/books/v1/volumes?q=Butterfly&key=AIzaSyDHX7LQsxQs-np9SHaLd-UTxuiZ1XnZ7tg";
+    private String JSON_RESPONSE = "https://www.googleapis.com/books/v1/volumes?q=Butterfly&maxResults=10&key=AIzaSyDHX7LQsxQs-np9SHaLd-UTxuiZ1XnZ7tg";
     private String BASE_URL = "https://www.googleapis.com/books/v1/volumes?";
     private String API_KEY = "AIzaSyDHX7LQsxQs-np9SHaLd-UTxuiZ1XnZ7tg";
     private int LOADER_ID_1 = 1;
@@ -51,12 +53,22 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 String input = searchEditText.getText().toString().trim();
-                StringBuilder stringUrl = new StringBuilder(BASE_URL);
-                stringUrl.append("q=")
-                        .append(input)
-                        .append("&key=")
-                        .append(API_KEY);
-                startBookSearch(stringUrl.toString());
+//                StringBuilder stringUrl = new StringBuilder(BASE_URL);
+//                stringUrl.append("q=")
+//                        .append(input)
+//                        .append("&key=")
+//                        .append(API_KEY);
+//                startBookSearch(stringUrl.toString());
+
+                Uri baseUri = Uri.parse(BASE_URL);
+                Uri.Builder builder = baseUri.buildUpon();
+
+                builder.appendQueryParameter("q",input);
+                builder.appendQueryParameter("maxResults", "4");
+                builder.appendQueryParameter("key", API_KEY);
+
+                String completedUri = builder.toString();
+                startBookSearch(completedUri);
             }
         });
 
